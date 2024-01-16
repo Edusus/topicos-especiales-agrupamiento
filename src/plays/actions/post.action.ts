@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
-import {Play} from '../plays.schema'
+import { Play } from '../plays.schema'
 
 export const postPlay = async ( 
   req: Request,
   res: Response
 ) => {
   try {
-  const { titulo, descripcion, genero, nombreAutor, year, sales } = req.body
-  const play = new Play({ titulo, descripcion, genero, nombreAutor, year, sales})
+  const { titulo, descripcion, genero, nombreAutor, year, sales, imageUrl } = req.body
+  const play = new Play({ titulo, descripcion, genero, nombreAutor, year, sales, imageUrl})
 
   await play.save()
 

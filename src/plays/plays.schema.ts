@@ -8,7 +8,8 @@ const playsSchema = new mongoose.Schema({
   genero: String,
   nombreAutor: String,
   year: Number,
-  sales: Number
+  sales: Number,
+  imageUrl: String
 })
 
 playsSchema.plugin(mongoosePaginate)

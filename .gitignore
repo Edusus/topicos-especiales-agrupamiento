@@ -1,2 +1,5 @@
 folders
 node_modules
+./models/cc.es.300.bin
+./models/cc.es.300.bin.gz
+./models/*

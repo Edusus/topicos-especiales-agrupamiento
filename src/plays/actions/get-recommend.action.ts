@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { Play } from '../plays.schema'
 
-export const recommend = async ( 
+export const getRecommend = async ( 
   req: Request,
   res: Response
 ) => {
@@ -9,7 +9,7 @@ export const recommend = async (
     const { id } = req.params
     const play = await Play.findById(id)
     if (play !== null){
-      const plays = await Play.find({ clusterId: play.clusterId })
+      const plays = await Play.find({ clusterId: play.clusterId, _id: { $ne: id } })
       res.status(200).json({ plays })
     }
     

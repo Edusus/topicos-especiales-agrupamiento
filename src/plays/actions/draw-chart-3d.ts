@@ -1,22 +1,14 @@
-import * as fs from "fs";
 import * as THREE from "three";
-const GLTFExporter = require("three-gltf-exporter");
+import * as fs from "fs";
+const GLTFExporter = require("gltf-pipeline");
 
-export default async function drawChart3D(
-  data: number[][],
-  _: number[][],
-  __: number[]
-) {
-  // Crear una escena 3D con puntos y centroides
+export default async function drawChart3D(data: number[][], _: any, __: any) {
+  // Crear una escena 3D con puntos
   const scene = new THREE.Scene();
   const pointsMaterial = new THREE.PointsMaterial({ size: 4 });
-  /*const centroidsMaterial = new THREE.PointsMaterial({
-    size: 10,
-    color: 0x000000,
-  });*/
 
   // Agregar puntos de datos a la escena
-  data.forEach((point, _) => {
+  data.forEach((point) => {
     const geometry = new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(point[0], point[1], point[2]),
     ]);
@@ -24,11 +16,10 @@ export default async function drawChart3D(
     scene.add(points);
   });
 
-  // Agregar centroides a la escena
   // Exportar la escena a formato glTF
   const exporter = new GLTFExporter();
-  exporter.parse(scene, (gltf: any) => {
-    const gltfArray = new Uint8Array([gltf]);
-    fs.writeFileSync("kmeans_example_3d.gltf", gltfArray);
-  });
+  const gltf = exporter.parse(scene, { binary: true });
+
+  // Guardar el archivo glTF
+  fs.writeFileSync("kmeans_example_3d.gltf", gltf);
 }

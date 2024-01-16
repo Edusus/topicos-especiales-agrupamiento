@@ -9,7 +9,7 @@ export interface InputDataScript {
 
 export interface InputData {
   texts: string[];
-  nComponents?: number;
+  nComponents?: number | null;
 }
 
 export type Vector = number[];
@@ -24,7 +24,8 @@ async function getTextVectors(inputData: InputData): Promise<Vector[]> {
   };
 
   // Definir la constante para determinar qué script ejecutar
-  const applyDimensionalityReduction = false;
+  const applyDimensionalityReduction =
+    inputData.nComponents !== null && inputData.nComponents !== undefined;
 
   // Llamada al script de Python
   let pythonScript: string;

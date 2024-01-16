@@ -2,6 +2,7 @@ import { kmeans } from "ml-kmeans";
 import { Request, Response } from "express";
 import { Play } from "../plays.schema";
 import getTextVectors from "../../actions/get-text-vectors/get-text-vectors";
+import drawChart from "./draw-chart";
 
 export const clusterize = async (_req: Request, res: Response) => {
   try {
@@ -20,6 +21,7 @@ export const clusterize = async (_req: Request, res: Response) => {
           " " +
           play.descripcion
       ),
+      nComponents: 2,
     });
 
     // Número de clústeres que deseamos encontrar
@@ -44,6 +46,9 @@ export const clusterize = async (_req: Request, res: Response) => {
     // Imprimir los centroides y las asignaciones de clúster
     console.log("Centroides:", result.centroids);
     console.log("Clusteres:", result.clusters);
+
+    // Dibujar el gráfico
+    await drawChart(data, result.centroids, result.clusters);
 
     res.status(200).json(result);
   } catch (error) {

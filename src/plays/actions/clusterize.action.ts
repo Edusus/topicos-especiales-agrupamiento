@@ -1,11 +1,26 @@
 import { kmeans } from "ml-kmeans";
 import { Request, Response } from "express";
 import { Play } from "../plays.schema";
+import getTextVectors from "../../actions/get-text-vectors/get-text-vectors";
 
 export const clusterize = async (_req: Request, res: Response) => {
   try {
     const plays = await Play.find();
-    const data = plays.map((play) => [play.year, play.sales]);
+    //const data = plays.map((play) => [play.year, play.sales]);
+
+    const data = await getTextVectors({
+      texts: plays.map(
+        (play) =>
+          " " +
+          play.titulo +
+          " " +
+          play.genero +
+          " " +
+          play.nombreAutor +
+          " " +
+          play.descripcion
+      ),
+    });
 
     // Número de clústeres que deseamos encontrar
     const k = 3;

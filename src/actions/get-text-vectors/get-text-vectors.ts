@@ -1,4 +1,5 @@
 import { exec } from "child_process";
+import path from "path";
 
 export interface InputDataScript {
   modelPath: string;
@@ -14,9 +15,12 @@ export interface InputData {
 export type Vector = number[];
 
 async function getTextVectors(inputData: InputData): Promise<Vector[]> {
+  const projectBasePath = path.resolve(__dirname, "../../..");
+  const modelPath = `${projectBasePath}/models/cc.es.300.bin`;
+
   const inputDataScript = {
     ...inputData,
-    modelPath: `${__dirname}/models/cc.es.300.bin`,
+    modelPath,
   };
 
   // Definir la constante para determinar qué script ejecutar
@@ -25,9 +29,9 @@ async function getTextVectors(inputData: InputData): Promise<Vector[]> {
   // Llamada al script de Python
   let pythonScript: string;
   if (applyDimensionalityReduction) {
-    pythonScript = "get-text-dim-vectors.py";
+    pythonScript = `${__dirname}/get-text-dim-vectors.py`;
   } else {
-    pythonScript = "get-text-vectors.py";
+    pythonScript = `${__dirname}/get-text-vectors.py`;
   }
 
   return new Promise((resolve, reject) => {

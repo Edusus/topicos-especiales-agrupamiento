@@ -3,8 +3,9 @@ import { Request, Response } from "express";
 import { Play } from "../plays.schema";
 import getTextVectors from "../../actions/get-text-vectors/get-text-vectors";
 import drawChart from "./draw-chart";
+import drawChart3D from "./draw-chart-3d";
 
-const NUMBER_DIMENTIONS = 2;
+let NUMBER_DIMENTIONS = 2;
 
 export const clusterize = async (_req: Request, res: Response) => {
   try {
@@ -52,6 +53,11 @@ export const clusterize = async (_req: Request, res: Response) => {
     if (NUMBER_DIMENTIONS === 2) {
       // Dibujar el gráfico
       await drawChart(data, result.centroids, result.clusters);
+    }
+
+    if (NUMBER_DIMENTIONS === 3) {
+      // Dibujar el gráfico
+      await drawChart3D(data, result.centroids, result.clusters);
     }
 
     res.status(200).json(result);

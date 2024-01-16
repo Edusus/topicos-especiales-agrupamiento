@@ -10,6 +10,7 @@ export const getPlays = async (
     res.status(200).json({ "items": plays})
 
   } catch (error) {
+    res.status(400).json({"message" : "Ocurrió un error"})
     console.log(error)
   }
 }

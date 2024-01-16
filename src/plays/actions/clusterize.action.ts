@@ -46,6 +46,7 @@ export const clusterize = async (_req: Request, res: Response) => {
 
     res.status(200).json(result);
   } catch (error) {
+    res.status(400).json({ message: "Ocurrió un error" });
     console.log(error);
   }
 };

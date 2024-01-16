@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
+import mongoose from "mongoose"
+import mongoosePaginate from "mongoose-paginate-v2"
 
 const playsSchema = new mongoose.Schema({
   clusterId: String || null,
@@ -10,8 +10,8 @@ const playsSchema = new mongoose.Schema({
   year: Number,
   sales: Number,
   imageUrl: String,
-});
+})
 
-playsSchema.plugin(mongoosePaginate);
+playsSchema.plugin(mongoosePaginate)
 
-export const Play = mongoose.model("PLay", playsSchema);
+export const Play = mongoose.model("PLay", playsSchema)

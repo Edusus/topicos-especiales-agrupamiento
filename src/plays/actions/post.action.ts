@@ -1,19 +1,22 @@
-import { Request, Response } from 'express'
-import {Play} from '../plays.schema'
+import { Request, Response } from "express";
+import { Play } from "../plays.schema";
 
-export const postPlay = async ( 
-  req: Request,
-  res: Response
-) => {
+export const postPlay = async (req: Request, res: Response) => {
   try {
-  const { titulo, descripcion, genero, nombreAutor, year, sales } = req.body
-  const play = new Play({ titulo, descripcion, genero, nombreAutor, year, sales})
+    const { titulo, descripcion, genero, nombreAutor, year, sales } = req.body;
+    const play = new Play({
+      titulo,
+      descripcion,
+      genero,
+      nombreAutor,
+      year,
+      sales,
+    });
 
-  await play.save()
+    await play.save();
 
-  res.status(200).json(play)
-
-} catch (error) {
-  console.log(error)
-}
-}
+    res.status(200).json(play);
+  } catch (error) {
+    console.log(error);
+  }
+};

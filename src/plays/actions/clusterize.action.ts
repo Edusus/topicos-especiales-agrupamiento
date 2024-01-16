@@ -30,6 +30,7 @@ export const clusterize = async (_req: Request, res: Response) => {
       k,
       {}
     );
+
     //let contador = 0;
     plays.forEach((play, index) => {
       play.clusterId = String(result.clusters[index]);

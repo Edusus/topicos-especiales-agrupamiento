@@ -4,6 +4,8 @@ import { Play } from "../plays.schema";
 import getTextVectors from "../../actions/get-text-vectors/get-text-vectors";
 import drawChart from "./draw-chart";
 
+const NUMBER_DIMENTIONS = 2;
+
 export const clusterize = async (_req: Request, res: Response) => {
   try {
     const plays = await Play.find();
@@ -21,7 +23,7 @@ export const clusterize = async (_req: Request, res: Response) => {
           " " +
           play.descripcion
       ),
-      nComponents: 2,
+      nComponents: NUMBER_DIMENTIONS,
     });
 
     // Número de clústeres que deseamos encontrar
@@ -47,8 +49,10 @@ export const clusterize = async (_req: Request, res: Response) => {
     console.log("Centroides:", result.centroids);
     console.log("Clusteres:", result.clusters);
 
-    // Dibujar el gráfico
-    await drawChart(data, result.centroids, result.clusters);
+    if (NUMBER_DIMENTIONS === 2) {
+      // Dibujar el gráfico
+      await drawChart(data, result.centroids, result.clusters);
+    }
 
     res.status(200).json(result);
   } catch (error) {

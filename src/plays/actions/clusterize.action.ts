@@ -5,7 +5,7 @@ import { Play } from "../plays.schema";
 export const clusterize = async (_req: Request, res: Response) => {
   try {
     const plays = await Play.find();
-    const data = plays.map((play) => [play.year, play.sales]);
+    const data = plays.map((play: any) => [play.year, play.sales]);
 
     // Número de clústeres que deseamos encontrar
     const k = 3;

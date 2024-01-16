@@ -2,10 +2,13 @@ import mongoose from "mongoose"
 import mongoosePaginate from 'mongoose-paginate-v2'
 
 const playsSchema = new mongoose.Schema({
+  clusterId: String || null,
   titulo: String,
   descripcion: String,
   genero: String,
-  nombreAutor: String
+  nombreAutor: String,
+  year: Number,
+  sales: Number
 })
 
 playsSchema.plugin(mongoosePaginate)

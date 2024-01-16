@@ -6,11 +6,10 @@ export const postPlay = async (
   res: Response
 ) => {
   try {
-  const { titulo, descripcion, genero, nombreAutor } = req.body
-  const play = new Play({ titulo, descripcion, genero, nombreAutor})
+  const { titulo, descripcion, genero, nombreAutor, year, sales } = req.body
+  const play = new Play({ titulo, descripcion, genero, nombreAutor, year, sales})
 
   await play.save()
-  console.log(play)
 
   res.status(200).json(play)
 

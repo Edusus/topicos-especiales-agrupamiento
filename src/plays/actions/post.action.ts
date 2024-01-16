@@ -3,7 +3,8 @@ import { Play } from "../plays.schema";
 
 export const postPlay = async (req: Request, res: Response) => {
   try {
-    const { titulo, descripcion, genero, nombreAutor, year, sales } = req.body;
+    const { titulo, descripcion, genero, nombreAutor, year, sales, imageUrl } =
+      req.body;
     const play = new Play({
       titulo,
       descripcion,
@@ -11,6 +12,7 @@ export const postPlay = async (req: Request, res: Response) => {
       nombreAutor,
       year,
       sales,
+      imageUrl,
     });
 
     await play.save();

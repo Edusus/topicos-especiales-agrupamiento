@@ -5,7 +5,7 @@ import { Play } from "../plays.schema";
 export const clusterize = async (_req: Request, res: Response) => {
   try {
     const plays = await Play.find();
-    const data = plays.map((play: any) => [play.year, play.sales]);
+    const data = plays.map((play) => [play.year, play.sales]);
 
     // Número de clústeres que deseamos encontrar
     const k = 3;
@@ -15,11 +15,19 @@ export const clusterize = async (_req: Request, res: Response) => {
       k,
       {}
     );
-    console.log("data", data);
+    let contador = 0;
+    plays.forEach((play) => {
+      play.clusterId = String(result.clusters[contador]);
+      play.save();
+      console.log(play.year, play.sales, play.clusterId);
+      contador++;
+    });
+    //console.log('data', data)
 
     // Imprimir los centroides y las asignaciones de clúster
-    console.log("Centroides:", result.centroids);
-    console.log("Clusteres:", result.clusters);
+    //console.log('Centroides:', result.centroids)
+    //console.log('Clusteres:', result.clusters)
+
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

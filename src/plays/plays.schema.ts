@@ -9,6 +9,7 @@ const playsSchema = new mongoose.Schema({
   nombreAutor: String,
   year: Number,
   sales: Number,
+  imageUrl: String,
 });
 
 playsSchema.plugin(mongoosePaginate);

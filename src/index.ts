@@ -1,5 +1,6 @@
 import express from "express";
 import { router } from "./routes";
+import cors from "cors"; // Import the cors package
 
 // declaration
 const app = express();
@@ -10,6 +11,7 @@ app.set("port", process.env.PORT || 3000);
 
 // Middlewares
 app.use(express.json());
+app.use(cors()); // Enable CORS
 
 // routes
 app.use("/api", router);
